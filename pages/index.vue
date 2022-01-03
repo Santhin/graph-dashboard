@@ -15,6 +15,7 @@ export default {
     drawGraph() {
       var website = document.getElementById("site-search").value;
       var config = {
+        encrypted: "ENCRYPTION_ON",
         container_id: "viz",
         server_url: this.$config.server_url,
         server_user: this.$config.server_user,
