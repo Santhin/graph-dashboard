@@ -3,6 +3,7 @@
     <label for="site-search">Search the site:</label>
     <input type="search" id="site-search" />
     <button v-on:click="drawGraph()">Szukaj</button>
+    <input type="search" id="limit-search" name="limit" aria-label="Limit" />
     <div id="viz" class="graph"></div>
   </body>
 </template>
@@ -14,6 +15,7 @@ export default {
   methods: {
     drawGraph() {
       var website = document.getElementById("site-search").value;
+      var limit = document.getElementById("limit-search").value;
       var config = {
         encrypted: "ENCRYPTION_ON",
         container_id: "viz",
@@ -24,6 +26,7 @@ export default {
         labels: {
           Website: {
             caption: "value",
+            size: "total_backlinks",
           },
           Category: {
             caption: "value",
@@ -75,7 +78,7 @@ export default {
           last_click = event.nodes;
           if (last_click[0]) {
             viz.updateWithCypher(
-              `MATCH (a)-[r]-(b) WHERE ID(a) = ${last_click} RETURN a, r, b LIMIT 5`
+              `MATCH (a)-[r]-(b) WHERE ID(a) = ${last_click} RETURN a, r, b LIMIT ${limit}`
             );
           }
         });
